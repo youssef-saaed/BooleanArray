@@ -16,10 +16,12 @@ const size_t CHUNK_SIZE = sizeof(uint8_t) * 8;
 */
 BooleanArray::BooleanArray(size_t MAX_SIZE)
 {
-    // Intializing MAX_SIZE which represents the max number of elements in the boolean array 
+    // Intializing MAX_SIZE which represents the max number of elements in the boolean array and OBJ_SIZE which represents the array actual size in memory
     // and intialize the internal array with size equal to the ceil of max numbers of elements in the boolean array divided by the uint8_t size
     this->MAX_SIZE = MAX_SIZE;
-    arr = new uint8_t[static_cast<size_t>(ceil((double)MAX_SIZE / CHUNK_SIZE))];
+    size_t arr_size = static_cast<size_t>(ceil((double)MAX_SIZE / CHUNK_SIZE));
+    arr = new uint8_t[arr_size];
+    OBJ_SIZE = sizeof(this->MAX_SIZE) + sizeof(arr) + arr_size * sizeof(uint8_t) + sizeof(OBJ_SIZE);
 }
 
 /**
@@ -100,4 +102,12 @@ bool BooleanArray::operator[](size_t index)
     // The second step, we will return the result of the AND binary operation between bits in this location and temp so it will be 10110010 & 00010000 so the result returned will be 00010000 which is true
     uint8_t temp = (1 << bitLoc);
     return static_cast<bool>(arr[loc] & temp);
+}
+
+/**
+ * @brief Public method to get the total space occupied by the boolean array in memory
+*/
+size_t BooleanArray::getobjectsize()
+{
+    return OBJ_SIZE;
 }

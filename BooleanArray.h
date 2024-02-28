@@ -31,6 +31,10 @@ private:
      * @brief A private member variable stores the max number of booleans stored in array
     */
     size_t MAX_SIZE;
+    /**
+     * @brief A private member variable stores the actual size in bytes of the array
+    */
+    size_t OBJ_SIZE;
 public:
     /**
      * @brief Constructor for BooleanArray
@@ -54,6 +58,10 @@ public:
      * @param val (val) is the new value we want to set it
     */
     void set(size_t index, bool val);
+    /**
+     * @brief Public method to get the total space occupied by the boolean array in memory
+    */
+    size_t getobjectsize();
 };
 
 #endif // _BITSBOOLEANARRAY_H_
